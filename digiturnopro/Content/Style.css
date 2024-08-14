@@ -1,0 +1,57 @@
+﻿body {
+    padding: 0px;
+    margin: 0px;
+}
+
+.image-container {
+    position: relative;
+    width: 100%; /* Ancho del contenedor */
+    max-width: 800px; /* Ajusta el tamaño máximo del contenedor */
+    height: auto; /* Altura automática basada en el contenido */
+}
+
+.image-container img {
+    width: 100%; /* Ajusta la imagen al ancho del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    object-fit: cover; /* Asegura que la imagen cubra el contenedor sin deformarse */
+}
+
+.contenido {
+    position: relative;
+    height: 100vh; /* Altura completa de la ventana */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Oculta cualquier desbordamiento */
+}
+
+.div-login-image-opacity {
+    opacity:0.5;
+}
+.card-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.card {
+    width: 100%;
+    max-width: 40rem;
+    padding: 30px;
+    margin: auto;
+    color: white;
+    border-radius: 0.25rem; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.form-control {
+    width: 100%;
+    max-width: 100%;
+}
+
+.btn {
+    width: 100%; /* Asegura que el botón ocupe el ancho completo del formulario */
+}
+
+

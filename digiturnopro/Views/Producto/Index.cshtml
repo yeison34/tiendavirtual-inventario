@@ -1,0 +1,102 @@
+﻿@model List<Entities.Productos.ProductoModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="idmodal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmación</h5>
+            </div>
+            <div class="modal-body">
+                <p>¿Esta seguro de eliminar el producto?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="aceptar()">Aceptar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="cancelar()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="">
+    <button class="btn btn-primary" onclick="editar(0)">Nuevo Producto</button>
+</div>
+<br />
+<div class="card mb-4">
+
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Productos
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Referencia</th>
+                    <th>Peso</th>
+                    <th>Precio Compra</th>
+                    <th>Categoria</th>
+                    <th>Sub Categoria</th>
+                    <th>Cantidad Stock</th>
+                    <th>Fecha Creación</th>
+                    <th>Fecha Modificación</th>
+                    <th>Activo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => item.Codigo)</td>
+                        <td>@Html.DisplayFor(m => item.Nombre)</td>
+                        <td>@Html.DisplayFor(m => item.Descripcion)</td>
+                        <td>@Html.DisplayFor(m => item.Referencia)</td>
+                        <td>@Html.DisplayFor(m => item.Peso)</td>
+                        <td>@Html.DisplayFor(m => item.Preciocompra)</td>
+                        <td>@Html.DisplayFor(m => item.Idcategoria)</td>
+                        <td>@Html.DisplayFor(m => item.Idsubcategoria)</td>
+                        <td>@Html.DisplayFor(m => item.Cantidadstock)</td>
+                        <td>@Html.DisplayFor(m => item.Fechacreacion)</td>
+                        <td>@Html.DisplayFor(m => item.Fechamodificacion)</td>
+                        <td>@Html.DisplayFor(m => item.Estaactivo)</td>
+                        <td><i class="fa-solid fa-pen" onclick="editar(@item.Id)"></i><span style="margin: 0 10px;"></span><i class="fa-solid fa-trash" onclick="eliminar(@item.Id)"></i></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    var idproducto=0
+    function editar(id) {
+        if (id == 0) {
+            window.location.href = "@Negocio.Utilidades.RutasNegocio.ObtenerRutaRelativa()/Producto/Editar?id=0";
+        } else {
+            window.location.href = "@Negocio.Utilidades.RutasNegocio.ObtenerRutaRelativa()/Producto/Editar?id="+id;
+        }
+
+    }
+
+    function aceptar() {
+        window.location.href = "@Negocio.Utilidades.RutasNegocio.ObtenerRutaRelativa()/Producto/Eliminar?id=" + idproducto;
+    }
+
+    function cancelar() {
+        $("#idmodal").modal("hide")
+    }
+
+    function eliminar(id) {
+        $("#idmodal").modal("show")
+        idproducto = id;
+    }
+
+</script>

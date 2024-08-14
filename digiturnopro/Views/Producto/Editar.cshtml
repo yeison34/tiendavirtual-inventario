@@ -1,0 +1,180 @@
+﻿@model Entities.Productos.ProductoEditModel
+@{
+    ViewBag.Title = "Editar";
+}
+
+<style>
+    .img-producto {
+        width: 200px;
+        height: 190px;
+        margin: 25px;
+    }
+</style>
+
+<div class="">
+    <button class="btn btn-success" onclick="guardar()">Guardar</button>
+    <button class="btn btn-primary" onclick="consultar()">Consultar</button>
+    <button class="btn btn-primary" onclick="nuevo()">Crear Producto</button>
+</div>
+<br />
+
+@using (Html.BeginForm("Guardar", "Producto", FormMethod.Post, new { id = "idform",enctype="multipart/form-data"}))
+{
+
+
+<div>
+        <div class="row">
+            <div class="col-sm-3" id="contenedorimagen">
+                @if (Model.Imagen != null)
+                {
+
+                    <img id="imgproduct" class="img-producto" src="@Negocio.Utilidades.RutasNegocio.ObtenerRutaRelativa()/Images/Productos/@Model.Imagen" alt="" />
+                }
+                else
+                {
+                    <img id="imgproduct" class="img-producto" style="display:none" alt="" />
+                    <div id="divimgdefault" class="img-producto" style="background-color:gray"></div>
+
+                }
+            </div>
+            <div class="col-sm-4" style="display:flex;justify-items:center;align-items:center">
+                <div class="mb-3">
+                    <label for="file" class="form-label btn btn-success">Cambiar Imagen</label>
+                    <input class="form-control" name="UploadImagen" type="file" id="file">
+                </div>
+                <input type="hidden" id="modelimagen" name="Imagen" value="@Model.Imagen" />
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <input type="hidden" value="@Model.Id" name="Id" />
+                @Html.LabelFor(m => m.Codigo)
+                @{
+                    Object htmlAttributes = new { @class = "form-control" };
+                    if (Model.Id != 0)
+                    {
+                        htmlAttributes = new { @class = "form-control", @readonly = "readonly" };
+                    }
+                }
+                @Html.TextBoxFor(m => m.Codigo, htmlAttributes)
+                @Html.ValidationMessage("Codigo", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(m => m.Nombre)
+                @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+                @Html.ValidationMessage("Nombre", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(m => m.Descripcion)
+                @Html.TextBoxFor(m => m.Descripcion, new { @class = "form-control" })
+                @Html.ValidationMessage("Descripcion", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(m => m.Referencia)
+                @Html.TextBoxFor(m => m.Referencia, new { @class = "form-control" })
+                @Html.ValidationMessage("Referencia", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class=row>
+            <div class="col-sm-3">
+                @Html.LabelFor(m => m.Idcategoria)
+                @Html.DropDownListFor(m => m.Idcategoria, Model.Categorias, new { @class = "form-control",@id="categoria" })
+                @Html.ValidationMessage("Idcategoria", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(m => m.Idsubcategoria)
+                @Html.DropDownListFor(m => m.Idsubcategoria, Model.SubCategorias, new { @class = "form-control",@id="subcategorias" })
+                @Html.ValidationMessage("Idsubcategoria", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(m => m.Peso)
+                @Html.TextBoxFor(m => m.Peso, new { @class = "form-control" })
+                @Html.ValidationMessage("Peso", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(m => m.Idunidadmedida)
+                @Html.DropDownListFor(m => m.Idunidadmedida, Model.UnidadesMedida, new { @class = "form-control" })
+                @Html.ValidationMessage("Idunidadmedida", new { @class = "text-danger" })
+            </div>
+            
+
+        </div>
+        <br />
+        <div class=row>
+            <div class="col-sm-3">
+                @Html.LabelFor(m => m.Cantidadstock)
+                @Html.TextBoxFor(m => m.Cantidadstock, new { @class = "form-control" })
+                @Html.ValidationMessage("Cantidadstoke", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(m => m.Preciocompra)
+                @Html.TextBoxFor(m => m.Preciocompra, new { @class = "form-control" })
+                @Html.ValidationMessage("Preciocompra", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-sm-3">
+                @Html.LabelFor(m => m.Estaactivo)
+                @Html.CheckBoxFor(m => m.Estaactivo)
+            </div>
+        </div>
+        <br />
+    </div>
+}
+<script>
+
+    $(document).ready(function () {
+        $("#file").hide();
+        $("#file").on('change', function () {
+            $("#divimgdefault").css("display","none");
+            $("#imgproduct").css("display:block");
+            var imagen = this.files[0]
+            console.log(imagen)
+            if (imagen) {
+                var readerfile = new FileReader();
+                readerfile.onload = function (e) {
+                    $("#modelimagen").attr("value",null)
+                    $("#imgproduct").attr("src", e.target.result).show()
+                }
+                readerfile.readAsDataURL(imagen)
+            }
+
+        })
+
+        $("#categoria").on("change", function () {
+            var categoria = $(this).val()
+            $.ajax({
+                method: "GET",
+                url: "@Negocio.Utilidades.RutasNegocio.ObtenerRutaRelativa()/Subcategoria/SubCategoriaPorCategoria",
+                data: {id:categoria}
+            }).done(function (data) {
+                if (data.length > 0) {
+                    $("#subcategorias").empty()
+                    data.forEach(item => {
+                        var option = `<option value="${item.Value}">${item.Text}</option>`;
+                        $("#subcategorias").append(option)
+                    })
+                }
+                console.log(data)
+            }).fail(function data() {
+
+            })
+        })
+
+    })
+
+    function guardar() {
+        $("#idform").submit()
+    }
+
+    function consultar() {
+        window.location.href = "@Negocio.Utilidades.RutasNegocio.ObtenerRutaRelativa()/Producto"
+    }
+
+    function nuevo() {
+        window.location.href = "@Negocio.Utilidades.RutasNegocio.ObtenerRutaRelativa()/Producto/Editar?id=0"
+    }
+
+</script>
+

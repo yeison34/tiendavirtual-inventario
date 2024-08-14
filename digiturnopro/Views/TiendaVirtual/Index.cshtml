@@ -1,0 +1,113 @@
+﻿@model Entities.Productos.ProductoscategoriaModel
+@{
+    ViewBag.Title = "Tienda Virtual";
+    Layout = "~/Views/Shared/_LayoutTiendaVirtual.cshtml";
+}
+
+<style>
+    .card-item-categoria {
+        box-shadow: 10px;
+        background-color: #fff;
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .card-item-producto {
+        width: 250px;
+        height: 400px;
+        border-radius: 5px;
+        box-shadow: 10px;
+        background-color: #fff;
+        box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.35);
+        padding: 0px;
+        position:relative;
+    }
+
+    .img-producto {
+        width: 200px;
+        height: 190px;
+        margin:25px;
+    }
+
+    .text-nombre-producto {
+        margin-left: 25px;
+        margin-right:25px;
+    }
+
+    .boton-centrado {
+        width:200px;
+        margin-bottom:10px
+    }
+</style>
+<div id="contenido" class="">
+
+</div>
+<script>
+    $(document).ready(function () {
+        var listaproductos =@Html.Raw(Json.Encode(Model.listaProductos));
+        var listacategorias =@Html.Raw(Json.Encode(Model.listaCategorias));
+        if (listacategorias.length > 0) {
+            listacategorias.forEach(item => {
+                var listaporcategoria = cargarProductosPorCategorias(item, listaproductos)
+                drawPorCategorias(listaporcategoria, false, item)
+                $("#contenido").append("</br>")
+            })
+        }
+
+    })
+
+    function drawPorCategorias(lista, tienecontenedor, idcontenedorpadre) {
+        $("#contenido").append(`<div class="row card-item-categoria mt-3" id="idcontenedorcategoria${idcontenedorpadre.Id}"><h3 class="text-center mt-3">${idcontenedorpadre.Nombre}</h3></div>`);
+        var cantidadItemPorFila = 5;
+        var yatienecontenedor = tienecontenedor;
+        var contenedor = "";
+        var contenedorimagenhtml = ""
+        var contenedorporcategoria=""
+        for (var i = 0; i < lista.length; i++) {
+            if (i % cantidadItemPorFila == 0) {
+                contenedor = `idtiendavirtual${idcontenedorpadre.Id}`;
+                yatienecontenedor = true;
+                $("#contenido").append("</br>")
+                $("#contenido").append(`<div class="row" id="${contenedor}"></div>`);
+            } else {
+                if (!yatienecontenedor) {
+                    contenedor = `idtiendavirtual${idcontenedorpadre.Id}`
+                    yatienecontenedor = true
+                    $("#contenido").append("</br>")
+                    $("#contenido").append(`<div class="row" id="${contenedor}"></div>`);
+
+                }
+            }
+            contenedorimagenhtml += `<div class="col-sm-2 m-3 card-item-producto" >`;
+            contenedorimagenhtml += `<img src="@Negocio.Utilidades.RutasNegocio.ObtenerRutaRelativa()/Images/Productos/${lista[i].Imagen}" class="img-producto">`;
+            contenedorimagenhtml += `<div class="text-nombre-producto"><p>${lista[i].Nombre ?? ""} - ${lista[i].Descripcion ?? ""} - ${lista[i].Peso ?? ""} </p></div>`;
+            contenedorimagenhtml += `<div class="text-center"><p>${lista[i].Unidadmedida} </p></div>`;
+            contenedorimagenhtml += `<div class="text-nombre-producto"><h5 style="text-decoration:line-through;">${formatoMoneda.format(lista[i].Preciocompra)}</h5></div>`;
+            contenedorimagenhtml += `<div class="text-nombre-producto"><h3 style="margin-left:10px;">${formatoMoneda.format(lista[i].Precioventa)}</h3></div>`; 
+            contenedorimagenhtml += `<div class="text-nombre-producto" style="position:absolute;bottom:0;"><button class="btn btn-success boton-centrado"  onclick="${lista[i].Id}">Comprar Producto</button></div>`;
+            contenedorimagenhtml += "</div>";
+            //$(`#${contenedor}`).append(contenedorimagenhtml);
+            contenedorporcategoria += contenedorimagenhtml
+            contenedorimagenhtml = "";
+        }
+        $(`#idcontenedorcategoria${idcontenedorpadre.Id}`).append(contenedorporcategoria)
+        contenedorporcategoria=""
+    }
+
+    function cargarProductosPorCategorias(item,lista) {
+        var arrayListaProductos = []
+        arrayListaProductos = lista.filter(x => x.Idcategoria == item.Id);
+        console.log(arrayListaProductos)
+        console.log("primer catgeoria")
+        return arrayListaProductos
+    }
+
+    const formatoMoneda = new Intl.NumberFormat('es-CO', {  // 'es-CO' para formato de pesos colombianos
+        style: 'currency',
+        currency: 'COP',  // Código de moneda para pesos colombianos
+        minimumFractionDigits: 2,  // Número mínimo de decimales
+        maximumFractionDigits: 2   // Número máximo de decimales
+    });
+
+
+</script>
+
