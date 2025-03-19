@@ -1,4 +1,4 @@
-﻿@model Entities.Usuario.LoginModel
+﻿@model Entities.Usuarios.UsuarioModel
 @{
     Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
 }
@@ -19,20 +19,23 @@
                     <form class="text-center p-5" action="@Url.Action("Index","Login")" method="post">
                         <div class="form-floating mb-5" style="width:25rem">
 
-                            @(Html.TextBoxFor(m=>m.UserName,new  { @class = "form-control" }))
-                            @(Html.LabelFor(m => m.UserName))
-                            @(Html.ValidationMessage("UserName", new { @class="text-danger"}))
+                            @(Html.TextBoxFor(m=>m.Nombreusuario,new  { @class = "form-control" }))
+                            @(Html.LabelFor(m => m.Nombreusuario))
+                            @(Html.ValidationMessage("Nombreusuario", new { @class="text-danger"}))
                         </div>
                         <div class="form-floating mb-5">
-                            @(Html.PasswordFor(m=>m.Password,new  { @class = "form-control" }))
-                            @(Html.LabelFor(m => m.Password))
-                            @(Html.ValidationMessage("Password", new { @class="text-danger"}))
+                            @(Html.PasswordFor(m=>m.Contrasena,new  { @class = "form-control" }))
+                            @(Html.LabelFor(m => m.Contrasena))
+                            @(Html.ValidationMessage("Contrasena", new { @class="text-danger"}))
                         </div>
                         <div class="form-floating">
                             <input type="submit" class="btn btn-success" value="Entrar" />
                         </div>
-                    </form>
-                </div>
+                        <div class="mt-5">
+                            <a href="@Url.Action("CrearCuenta","Login")">Crear Cuenta</a>
+                        </div>
+                    </form>                    
+                </div>                
                 @if (ViewBag.mensaje != "")
                 {
                     <small class="text-danger text-center">@ViewBag.mensaje</small>

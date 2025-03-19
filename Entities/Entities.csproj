@@ -68,12 +68,15 @@
     <Compile Include="Productos\ProductoEditModel.cs" />
     <Compile Include="Productos\ProductoModel.cs" />
     <Compile Include="Productos\ProductoscategoriaModel.cs" />
+    <Compile Include="Productos\ReservacionproductoModel.cs" />
     <Compile Include="Productos\SubcategoriaModel.cs" />
     <Compile Include="Productos\UnidadmedidadModel.cs" />
     <Compile Include="Productos\VistaproductoscategoriaModel.cs" />
     <Compile Include="Productos\VistaproductosModel.cs" />
+    <Compile Include="Productos\VistareservacionproductoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Login\LoginModel.cs" />
+    <Compile Include="Usuarios\ClienteModel.cs" />
+    <Compile Include="Usuarios\UsuarioModel.cs" />
     <Compile Include="Utilidades\MenuModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -23,7 +23,6 @@ namespace Data.Productos
             try { 
                 StringBuilder sql=new StringBuilder();
                 sql.Append(selectTabla());
-                Connection.openConection();
                 var conexion = Connection.getConnection();
                 registros = conexion.Query<Vistaproductos>(sql.ToString()).ToList();
             }catch(Exception ex) {

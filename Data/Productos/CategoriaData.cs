@@ -11,19 +11,18 @@ namespace Data.Productos
     public partial class CategoriaData
     {
 
-        private static string selectTabla() { 
+        private static string SelectTabla() { 
             StringBuilder stringBuilder= new StringBuilder();
             stringBuilder.Append("SELECT productos_categoria.id,productos_categoria.codigo,productos_categoria.nombre,productos_categoria.estaactivo");
             stringBuilder.Append(" FROM productos_categoria");
             return stringBuilder.ToString();    
         }
-        public static List<Categoria> getRegistros()
+        public static List<Categoria> GetRegistros()
         {
             List<Categoria> registros = null;
             try {
                 StringBuilder sql = new StringBuilder();
-                sql.Append(selectTabla());
-                Connection.openConection();
+                sql.Append(SelectTabla());
                 var conexion=Connection.getConnection();
                 registros = conexion.Query<Categoria>(sql.ToString()).ToList();
             }
@@ -33,15 +32,14 @@ namespace Data.Productos
             return registros;
         }
 
-        public static Categoria getPorId(int id) {
+        public static Categoria GetPorId(int id) {
             Categoria registro = null;
             try
             {
                 StringBuilder sql=new StringBuilder();
-                sql.Append(selectTabla());
+                sql.Append(SelectTabla());
                 sql.Append(" WHERE ");
                 sql.Append("productos_categoria.id=@id");
-                Connection.openConection();
                 var conexion=Connection.getConnection();
                 DynamicParameters parametros=new DynamicParameters();
                 parametros.Add("id",id);

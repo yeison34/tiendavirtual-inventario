@@ -51,7 +51,7 @@ namespace Data.Productos
         public Categoria Idcategoriacategoria
         {
             get {
-                return CategoriaData.getPorId(Idcategoria??0);
+                return CategoriaData.GetPorId(Idcategoria??0);
             }
         }
 

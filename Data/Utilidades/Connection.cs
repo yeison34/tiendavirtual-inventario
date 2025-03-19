@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,18 +35,18 @@ namespace Data.Utilidades
 
         public static NpgsqlConnection getConnection()
         {
-            NpgsqlConnection conexion= null;
+            var idhilo = Thread.CurrentThread.ManagedThreadId.ToString();
             try
             {
-                var idhilo = Thread.CurrentThread.ManagedThreadId.ToString();
-                if (connection.TryGetValue(idhilo, out NpgsqlConnection conn))
+                if (!connection.ContainsKey(idhilo))
                 {
-                    conexion = conn;
+                    var conexion = new NpgsqlConnection(connectionString);
+                    connection[idhilo]=conexion;
                 }
             } catch(Exception ex) {
                 throw ex;
             }
-            return conexion;
+            return connection[idhilo];
         }
 
         public static void closeConnection()

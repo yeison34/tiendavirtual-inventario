@@ -12,7 +12,6 @@ namespace Negocio.Utilidades
 {
     public partial class RutasNegocio
     {
-
         public static string ObtenerRutaRelativa(){
             var ruta = ConfigurationManager.AppSettings["Url"];
             return ruta;

@@ -25,7 +25,6 @@ namespace Data.Productos
             {
                 StringBuilder sql = new StringBuilder();
                 sql.Append(selectTabla());
-                Connection.openConection();
                 var conexion = Connection.getConnection();
                 registros = conexion.Query<Unidadmedida>(sql.ToString()).ToList();
             }
@@ -45,7 +44,6 @@ namespace Data.Productos
                 sql.Append(selectTabla());
                 sql.Append(" WHERE ");
                 sql.Append("productos_unidadmedida.id=@id");
-                Connection.openConection();
                 var conexion = Connection.getConnection();
                 DynamicParameters parametros = new DynamicParameters();
                 parametros.Add("id", id);

@@ -65,7 +65,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Usuarios\ClienteNegocioModel.cs" />
+    <Compile Include="Usuarios\UsuarioNegocioModel.cs" />
     <Compile Include="Utilidades\RutasNegocio.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">
@@ -76,10 +82,6 @@
       <Project>{dcfbbb4a-9dc6-4b5a-9a93-015c836c486e}</Project>
       <Name>Entities</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

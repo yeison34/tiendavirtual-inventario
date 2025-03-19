@@ -23,7 +23,6 @@ namespace Data.Utilidades
             List<Menu> registros = null;
             try {
                 string sql = selectTabla();
-                Connection.openConection();
                 var conexion=Connection.getConnection();
                 registros = conexion.Query<Menu>(sql).ToList();
             }
@@ -41,7 +40,6 @@ namespace Data.Utilidades
                 sql.Append(selectTabla());
                 sql.Append(" WHERE ");
                 sql.Append("utilidades_menu.id=@id");
-                Connection.openConection();
                 var conexion = Connection.getConnection();
                 DynamicParameters parametros = new DynamicParameters();
                 parametros.Add("id",id);

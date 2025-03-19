@@ -24,7 +24,6 @@ namespace Data.Productos
             {
                 StringBuilder sql = new StringBuilder();
                 sql.Append(selectTabla());
-                Connection.openConection();
                 var conexion = Connection.getConnection();
                 registros = conexion.Query<Vistaproductoscategoria>(sql.ToString()).ToList();
             }

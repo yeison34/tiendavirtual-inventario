@@ -1,0 +1,84 @@
+﻿@model Entities.Usuarios.ClienteModel
+@{
+    ViewBag.Title = "Editar Cliente";
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+<style>
+    .contenedor-form {
+        width: 100%;
+        margin: 10% 0 10% 0;
+        padding: 50px;
+        box-shadow: lightgray 6px 6px;
+        border: 1px solid black;
+        background-color: white;
+    }
+
+    .boton-centrado {
+    }
+</style>
+@using (Html.BeginForm("Guardar", "Cliente", FormMethod.Post))
+{
+    <div class="contenedor-form">
+        <div class="col-sm-12">
+            <h2 class="text-center">Información Personal</h2>
+            <br />
+            <br />
+            <div class="row">
+                <input type="hidden" value="@Model.Id"/>
+                <div class="col-sm-3">
+                    @Html.LabelFor(m => m.Idtipoidentificacion)
+                    @Html.DropDownListFor(m => m.Idtipoidentificacion, Model.ListaTipoIdentificacion, new { @class = "form-control" })
+                    @(Html.ValidationMessage("Idtipoidentificacion", new { @class="text-danger"}))
+                </div>
+                <div class="col-sm-3">
+                    @Html.LabelFor(m => m.Identificacion)
+                    @Html.TextBoxFor(m => m.Identificacion, new { @class = "form-control" })
+                    @(Html.ValidationMessage("Identificacion", new { @class="text-danger"}))
+                </div>
+                <div class="col-sm-3">
+                    @Html.LabelFor(m => m.Nombre)
+                    @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+                    @(Html.ValidationMessage("Nombre", new { @class="text-danger"}))
+                </div>
+                <div class="col-sm-3">
+                    @Html.LabelFor(m => m.Apellido)
+                    @Html.TextBoxFor(m => m.Apellido, new { @class = "form-control" })
+                    @(Html.ValidationMessage("Apellido", new { @class="text-danger"}))
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-3">
+                    @Html.LabelFor(m => m.Idgenero)
+                    @Html.DropDownListFor(m => m.Idgenero, Model.ListaGenero, new { @class = "form-control" })
+                    @(Html.ValidationMessage("Idgenero", new { @class="text-danger"}))
+                </div>
+                <div class="col-sm-3">
+                    @Html.LabelFor(m => m.Fechanacimiento)
+                    @Html.TextBoxFor(m => m.Fechanacimiento, new { @class = "form-control" })
+                </div>
+                <div class="col-sm-3">
+                    @Html.LabelFor(m => m.Idpais)
+                    @Html.DropDownListFor(m => m.Idpais, Model.ListaPais,new { @class = "form-control" })
+                </div>
+                <div class="col-sm-3">
+                    @Html.LabelFor(m => m.Iddepartamento)
+                    @Html.DropDownListFor(m => m.Iddepartamento,Model.ListaDepartamento, new { @class = "form-control" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-3">
+                    @Html.LabelFor(m => m.Idmunicipio)
+                    @Html.DropDownListFor(m => m.Idmunicipio,Model.ListaMunicipio, new { @class = "form-control" })
+                </div>
+            </div>
+            <br />
+        </div>
+        <br />
+        <div class="row">
+            <button class="btn btn-success boton-centrado">Guardar</button>
+        </div>
+    </div>
+}
+

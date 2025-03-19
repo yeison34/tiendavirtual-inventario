@@ -1,0 +1,55 @@
+﻿@model Entities.Usuarios.UsuarioModel
+@{
+
+    Layout = "~/Views/Shared/_LayoutPrincipal.cshtml";
+}
+
+<div class="contenido">
+    <div class="row">
+        <div class="col-sm-12 col-lg-8">
+            <div class="image-container">
+                <img src="~/Images//logo.png" />
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-4">
+            <div class="card">
+                <div class="card-header" style="background:white">
+                    <h3 class="text-center">Crear Cuenta</h3>
+                </div>
+                <div class="card-body">
+                    <form class="text-center p-5" action="@Url.Action("CrearCuenta","Login")" method="post">
+                        <div class="form-floating mb-5" style="width:25rem">
+                            @(Html.TextBoxFor(m=>m.Nombreusuario,new  { @class = "form-control" }))
+                            @(Html.LabelFor(m => m.Nombreusuario))
+                            @(Html.ValidationMessage("Nombreusuario", new { @class="text-danger"}))
+                        </div>
+                        <div class="form-floating mb-5" style="width:25rem">
+                            @(Html.TextBoxFor(m=>m.Correo,new  { @class = "form-control" }))
+                            @(Html.LabelFor(m => m.Correo))
+                            @(Html.ValidationMessage("Correo", new { @class="text-danger"}))
+                        </div>
+                        <div class="form-floating mb-5">
+                            @(Html.PasswordFor(m=>m.Contrasena,new  { @class = "form-control" }))
+                            @(Html.LabelFor(m => m.Contrasena))
+                            @(Html.ValidationMessage("Contrasena", new { @class="text-danger"}))
+                        </div>
+                        <div class="form-floating mb-5">
+                            @(Html.PasswordFor(m=>m.Passwordconfirm,new  { @class = "form-control" }))
+                            @(Html.LabelFor(m => m.Passwordconfirm))
+                            @(Html.ValidationMessage("Password", new { @class="text-danger"}))
+                        </div>
+                        <div class="form-floating">
+                            <input type="submit" class="btn btn-success" value="Registrarse" />
+                        </div>
+                    </form>
+                </div>
+                @if (ViewBag.mensaje != "")
+                {
+                    <small class="text-danger text-center">@ViewBag.mensaje</small>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+

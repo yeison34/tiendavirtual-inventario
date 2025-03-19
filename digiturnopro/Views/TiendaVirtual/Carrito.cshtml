@@ -1,0 +1,31 @@
+﻿@model List<Entities.Productos.VistareservacionproductoModel> 
+@{
+    ViewBag.Title = "Productos - Carrito";
+}
+
+<div class="row">
+    <div class="col-s-8">
+        @foreach (var item in Model) {
+            <div class="row">
+                <div class="col-sm-4">
+                    <div>
+                        <img src="@Url.Content("~/Images/Productos")/@item.Imagen"/>
+                    </div>                    
+                </div>
+                <div class="col-sm-4">
+                    <h5>@item.Nombreproducto</h5>
+                    <h5>@item.Preciocompra</h5>
+                    <h5>Cantidad: @item.Cantidad</h5>
+                </div>
+                <div class="col-sm-4">
+
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
+    <div class="col-s-4">
+
+    </div>
+</div>
+
